@@ -104,13 +104,11 @@ open class FullScreenSlideshowViewController: UIViewController {
 
         // Prevents broken dismiss transition when image is zoomed in
         slideshow.currentSlideshowItem?.zoomOut()
-
-        delegate?.fullScreenSlideshowViewControllerWasDismissed(self)
     }
 
     open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        delegate?.fullScreenSlideshowViewControllerWasDismissed(self)
+        delegate?.fullScreenGalleryWasDismissed(self)
     }
 
     open override func viewDidLayoutSubviews() {
