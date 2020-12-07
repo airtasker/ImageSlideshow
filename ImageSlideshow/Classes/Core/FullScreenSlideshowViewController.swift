@@ -108,7 +108,7 @@ open class FullScreenSlideshowViewController: UIViewController {
 
     open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        delegate?.fullScreenGalleryWasDismissed(self)
+        delegate?.fullScreenGalleryWasDismissed(slideshow)
     }
 
     open override func viewDidLayoutSubviews() {
