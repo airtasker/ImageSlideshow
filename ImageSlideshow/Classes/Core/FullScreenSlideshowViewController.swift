@@ -7,8 +7,14 @@
 
 import UIKit
 
+public protocol FullScreenSlideshowViewControllerDelegate: AnyObject {
+    func fullScreenSlideshowViewControllerWasDismissed(_ viewController:  FullScreenSlideshowViewController)
+}
+
 @objcMembers
 open class FullScreenSlideshowViewController: UIViewController {
+
+    open weak var delegate: FullScreenSlideshowViewControllerDelegate?
 
     open var slideshow: ImageSlideshow = {
         let slideshow = ImageSlideshow()
@@ -18,7 +24,7 @@ open class FullScreenSlideshowViewController: UIViewController {
         // turns off the timer
         slideshow.slideshowInterval = 0
         slideshow.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
-
+        slideshow.isFullScreen = true
         return slideshow
     }()
 
@@ -97,6 +103,13 @@ open class FullScreenSlideshowViewController: UIViewController {
 
         // Prevents broken dismiss transition when image is zoomed in
         slideshow.currentSlideshowItem?.zoomOut()
+
+        delegate?.fullScreenSlideshowViewControllerWasDismissed(self)
+    }
+
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        delegate?.fullScreenSlideshowViewControllerWasDismissed(self)
     }
 
     open override func viewDidLayoutSubviews() {
