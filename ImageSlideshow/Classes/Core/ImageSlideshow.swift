@@ -9,7 +9,7 @@ import UIKit
 
 @objc
 /// The delegate protocol informing about image slideshow state changes
-public protocol ImageSlideshowDelegate: class {
+public protocol ImageSlideshowDelegate: FullScreenSlideshowViewControllerDelegate {
     /// Tells the delegate that the current page has changed
     ///
     /// - Parameters:
@@ -54,6 +54,8 @@ public enum ImagePreload {
 /// Main view containing the Image Slideshow
 @objcMembers
 open class ImageSlideshow: UIView {
+
+    public internal(set) var isFullScreen: Bool = false
 
     /// Scroll View to wrap the slideshow
     public let scrollView = UIScrollView()
@@ -539,6 +541,9 @@ open class ImageSlideshow: UIView {
     @discardableResult
     open func presentFullScreenController(from controller: UIViewController, completion: (() -> Void)? = nil) -> FullScreenSlideshowViewController {
         let fullscreen = FullScreenSlideshowViewController()
+        fullscreen.slideshow.delegate = delegate
+        fullscreen.delegate = delegate
+
         fullscreen.pageSelected = {[weak self] (page: Int) in
             self?.setCurrentPage(page, animated: false)
         }
