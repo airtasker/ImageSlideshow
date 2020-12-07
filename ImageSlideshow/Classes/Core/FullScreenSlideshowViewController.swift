@@ -7,8 +7,9 @@
 
 import UIKit
 
+@objc
 public protocol FullScreenSlideshowViewControllerDelegate: AnyObject {
-    func fullScreenSlideshowViewControllerWasDismissed(_ viewController:  FullScreenSlideshowViewController)
+    func fullScreenGalleryWasDismissed(_ gallery: ImageSlideshow)
 }
 
 @objcMembers
